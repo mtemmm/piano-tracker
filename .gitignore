@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Environment & Local Configuration Files
+.env
+*.env
+*.properties.local
+application-local.properties
+
+# Local File Uploads (PDFs, MP3s)
+/uploads/
+uploads/
+
+# OS-generated files
+.DS_Store
+Thumbs.db

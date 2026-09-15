@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TaskService {
+public interface PieceService {
 
-    List<Piece> listPieces(UUID pieceId);
-    Piece createPiece(UUID pieceId, Piece piece);
+    List<Piece> listPieces();
+    Piece createPiece(Piece piece);
     Optional<Piece> getPiece(UUID pieceId);
     Piece updatePiece(UUID pieceId, Piece piece);
     void deletePiece(UUID pieceId);

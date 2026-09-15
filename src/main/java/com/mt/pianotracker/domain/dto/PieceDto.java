@@ -1,4 +1,16 @@
 package com.mt.pianotracker.domain.dto;
 
-public record PieceDto() {
+import com.mt.pianotracker.domain.entities.Status;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public record PieceDto(
+    UUID id,
+    String title,
+    String composer,
+    Status status,
+    Integer rating,
+    String notes
+) {
 }
