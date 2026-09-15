@@ -55,11 +55,8 @@ public class PieceServiceImpl implements PieceService {
 
     @Override
     public Piece updatePiece(UUID pieceId, Piece piece) {
-        if(piece.getTitle() == null){
+        if(piece.getTitle() == null) {
             throw new IllegalArgumentException("Piece must have a title");
-        }
-        if(!Objects.equals(piece.getId(), pieceId)){
-            throw new IllegalArgumentException("Attempting to change task list ID, this is not permited!");
         }
 
         Piece existingPiece = pieceRepository.findById(pieceId).orElseThrow(() -> new IllegalArgumentException("Piece not found."));

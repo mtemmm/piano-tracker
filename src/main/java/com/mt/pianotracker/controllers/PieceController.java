@@ -51,5 +51,11 @@ public class PieceController {
         pieceService.deletePiece(pieceId);
     }
 
+    @PutMapping("/{id}")
+    public PieceDto updatePiece(@PathVariable("id") UUID pieceId,
+            @RequestBody PieceDto pieceDto){
+        return pieceMapper.toDto(pieceService.updatePiece(pieceId, pieceMapper.fromDto(pieceDto)));
+    }
+
 
 }
