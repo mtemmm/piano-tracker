@@ -9,6 +9,7 @@ import org.apache.catalina.LifecycleState;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,5 +40,16 @@ public class PieceController {
         Piece resultPiece = pieceService.createPiece(newPiece);
         return pieceMapper.toDto(resultPiece);
     }
+
+    @GetMapping("/{id}")
+    public PieceDto getPiece(@PathVariable("id") UUID pieceId){
+        return pieceMapper.toDto(pieceService.getPiece(pieceId).orElse(null));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePiece(@PathVariable("id") UUID pieceId){
+        pieceService.deletePiece(pieceId);
+    }
+
 
 }
