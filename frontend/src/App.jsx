@@ -1,12 +1,14 @@
+import { Routes, Route } from "react-router-dom";
 import { ListPieces } from "./components/ListPieces";
 import { AddPieceForm } from "./components/AddPieceForm";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <AddPieceForm />
+    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <Routes>
+        <Route path="/" element={<ListPieces />} />
+        <Route path="/add" element={<AddPieceForm />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;

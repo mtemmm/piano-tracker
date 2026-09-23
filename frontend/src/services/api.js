@@ -23,3 +23,13 @@ export const createPiece = async (pieceData) => {
 
   return await response.json();
 };
+
+export const deletePiece = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete piece");
+  }
+};

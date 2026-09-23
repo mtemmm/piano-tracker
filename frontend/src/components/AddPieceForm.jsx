@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createPiece } from "../services/api";
 import "../styles/AddPieceForm.css";
 
-export function AddPieceForm({ onPieceAdded }) {
+export function AddPieceForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     composer: "",
@@ -28,19 +31,9 @@ export function AddPieceForm({ onPieceAdded }) {
     setError(null);
 
     try {
-      const createdPiece = await createPiece(formData);
-
-      setFormData({
-        title: "",
-        composer: "",
-        status: "WISHLIST",
-        rating: 3,
-        notes: "",
-      });
-
-      if (onPieceAdded) {
-        onPieceAdded(createdPiece);
-      }
+      await createPiece(formData);
+      // Nakon uspesnog cuvanja, vrati se na pocetnu stranicu!
+      navigate("/");
     } catch (err) {
       setError(err.message);
     } finally {
