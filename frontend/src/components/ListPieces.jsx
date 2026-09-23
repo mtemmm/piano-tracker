@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllPieces, deletePiece } from "../services/api";
 import { PieceCard } from "./PieceCard";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function ListPieces() {
   const [pieces, setPieces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [statusFilter, setStatusFilter] = useState("ALL");
+
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPieces = async () => {
       try {
@@ -32,8 +36,13 @@ export function ListPieces() {
     }
   };
 
+  const filteredPieces = pieces.filter((piece) => {
+    if (statusFilter === "ALL") return true;
+    return piece.status === statusFilter;
+  });
+
   const handleEditPiece = (piece) => {
-    console.log("Edit clicked for piece:", piece.title);
+    navigate(`/edit/${piece.id}`);
   };
 
   if (loading) return <div>Loading pieces...</div>;
@@ -65,8 +74,38 @@ export function ListPieces() {
         </Link>
       </div>
 
-      {pieces.length === 0 ? (
-        <p>No pieces found in database.</p>
+      {/* 3. Kontrolna traka za filtriranje */}
+      <div
+        style={{
+          marginBottom: "1.5rem",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+      >
+        <label htmlFor="status-filter" style={{ fontWeight: "bold" }}>
+          Filter by Status:
+        </label>
+        <select
+          id="status-filter"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          style={{
+            padding: "0.4rem 0.8rem",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        >
+          <option value="ALL">All Statuses</option>
+          <option value="WISHLIST">WISHLIST</option>
+          <option value="LEARNING">LEARNING</option>
+          <option value="FINISHED">FINISHED</option>
+        </select>
+      </div>
+
+      {/* 4. Renderovanje filtriranih rezultata */}
+      {filteredPieces.length === 0 ? (
+        <p>No pieces found for the selected filter.</p>
       ) : (
         <div
           style={{
@@ -75,7 +114,7 @@ export function ListPieces() {
             gap: "1.5rem",
           }}
         >
-          {pieces.map((piece) => (
+          {filteredPieces.map((piece) => (
             <PieceCard
               key={piece.id}
               piece={piece}

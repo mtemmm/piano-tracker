@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createPiece } from "../services/api";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { createPiece, updatePiece, getPieceById } from "../services/api";
 import "../styles/AddPieceForm.css";
 
 export function AddPieceForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditMode = Boolean(id);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -14,8 +16,31 @@ export function AddPieceForm() {
     notes: "",
   });
 
+  const [loading, setLoading] = useState(isEditMode);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchPiece = async () => {
+        try {
+          const data = await getPieceById(id);
+          setFormData({
+            title: data.title || "",
+            composer: data.composer || "",
+            status: data.status || "WISHLIST",
+            rating: data.rating || 3,
+            notes: data.notes || "",
+          });
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchPiece();
+    }
+  }, [id, isEditMode]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,8 +56,11 @@ export function AddPieceForm() {
     setError(null);
 
     try {
-      await createPiece(formData);
-      // Nakon uspesnog cuvanja, vrati se na pocetnu stranicu!
+      if (isEditMode) {
+        await updatePiece(id, formData);
+      } else {
+        await createPiece(formData);
+      }
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -41,9 +69,11 @@ export function AddPieceForm() {
     }
   };
 
+  if (loading) return <div>Loading piece data...</div>;
+
   return (
     <form onSubmit={handleSubmit} className="add-piece-form">
-      <h3>Add New Piece</h3>
+      <h3>{isEditMode ? "Edit Piece" : "Add New Piece"}</h3>
 
       {error && <p className="error-message">Error: {error}</p>}
 
@@ -96,7 +126,7 @@ export function AddPieceForm() {
       </div>
 
       <button type="submit" disabled={submitting} className="submit-btn">
-        {submitting ? "Saving..." : "Add Piece"}
+        {submitting ? "Saving..." : isEditMode ? "Update Piece" : "Add Piece"}
       </button>
     </form>
   );

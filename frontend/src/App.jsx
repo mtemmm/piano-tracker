@@ -8,6 +8,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<ListPieces />} />
         <Route path="/add" element={<AddPieceForm />} />
+        <Route path="/edit/:id" element={<AddPieceForm />} />
       </Routes>
     </div>
   );

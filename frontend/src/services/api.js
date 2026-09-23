@@ -33,3 +33,27 @@ export const deletePiece = async (id) => {
     throw new Error("Failed to delete piece");
   }
 };
+
+export const getPieceById = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch piece details");
+  }
+  return await response.json();
+};
+
+export const updatePiece = async (id, pieceData) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(pieceData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update piece");
+  }
+
+  return await response.json();
+};
