@@ -7,3 +7,19 @@ export const getAllPieces = async () => {
   }
   return await response.json();
 };
+
+export const createPiece = async (pieceData) => {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(pieceData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create piece");
+  }
+
+  return await response.json();
+};

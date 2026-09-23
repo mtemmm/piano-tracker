@@ -1,9 +1,10 @@
 import { ListPieces } from "./components/ListPieces";
+import { AddPieceForm } from "./components/AddPieceForm";
 
 function App() {
   return (
     <div>
-      <ListPieces />
+      <AddPieceForm />
     </div>
   );
 }
