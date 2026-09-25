@@ -1,7 +1,9 @@
 package com.mt.pianotracker.services.impl;
 
 import com.mt.pianotracker.domain.entities.Piece;
+import com.mt.pianotracker.domain.entities.PracticeSession;
 import com.mt.pianotracker.repositories.PieceRepository;
+import com.mt.pianotracker.repositories.PracticeSessionRepository;
 import com.mt.pianotracker.services.PieceService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,11 @@ import java.util.UUID;
 public class PieceServiceImpl implements PieceService {
 
     private final PieceRepository pieceRepository;
+    private final PracticeSessionRepository practiceSessionRepository;
 
-    public PieceServiceImpl(PieceRepository pieceRepository) {
+    public PieceServiceImpl(PieceRepository pieceRepository, PracticeSessionRepository practiceSessionRepository) {
         this.pieceRepository = pieceRepository;
+        this.practiceSessionRepository = practiceSessionRepository;
     }
 
     @Override
@@ -71,6 +75,7 @@ public class PieceServiceImpl implements PieceService {
 
     @Override
     public void deletePiece(UUID pieceId) {
+        practiceSessionRepository.deleteByPieceId(pieceId);
         pieceRepository.deleteById(pieceId);
     }
 }
