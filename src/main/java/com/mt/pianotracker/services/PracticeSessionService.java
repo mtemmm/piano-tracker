@@ -15,4 +15,5 @@ public interface PracticeSessionService {
     PracticeSession createPracticeSession(PracticeSession practiceSession);
     List<PracticeSession> listPracticeSessionForPiece(UUID pieceId);
     void deletePracticeSession(UUID pieceId, UUID practiceSessionId);
+
 }
