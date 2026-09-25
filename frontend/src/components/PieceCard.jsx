@@ -1,16 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/PieceCard.css";
 
 export function PieceCard({ piece, onDelete, onEdit }) {
+  const navigate = useNavigate();
+
   const handleEditClick = () => {
-    if (onEdit) {
-      onEdit(piece);
-    }
+    if (onEdit) onEdit(piece);
   };
 
   const handleDeleteClick = () => {
-    if (onDelete) {
-      onDelete(piece.id);
-    }
+    if (onDelete) onDelete(piece.id);
+  };
+
+  const handlePracticeClick = () => {
+    navigate(`/pieces/${piece.id}`);
   };
 
   return (
@@ -32,6 +35,20 @@ export function PieceCard({ piece, onDelete, onEdit }) {
       </div>
 
       <div className="piece-actions">
+        <button
+          className="btn-practice"
+          onClick={handlePracticeClick}
+          style={{
+            backgroundColor: "#2b6cb0",
+            color: "white",
+            border: "none",
+            padding: "0.4rem 0.8rem",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Practice
+        </button>
         <button className="btn-edit" onClick={handleEditClick}>
           Edit
         </button>

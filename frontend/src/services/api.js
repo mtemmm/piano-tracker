@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:8080/api/pieces";
+const BASE_URL = "http://localhost:8080/api/sessions";
 
 export const getAllPieces = async () => {
   const response = await fetch(API_URL);
@@ -56,4 +57,41 @@ export const updatePiece = async (id, pieceData) => {
   }
 
   return await response.json();
+};
+
+export const createPracticeSession = async (pieceId, sessionData) => {
+  const response = await fetch(`${BASE_URL}/${pieceId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sessionData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Greška prilikom snimanja sesije.");
+  }
+
+  return await response.json();
+};
+
+export const fetchSessionsForPiece = async (pieceId) => {
+  const response = await fetch(`${BASE_URL}/piece/${pieceId}`);
+
+  if (!response.ok) {
+    throw new Error("Greška prilikom dobavljanja sesija.");
+  }
+
+  return await response.json();
+};
+
+export const deletePracticeSession = async (pieceId, sessionId) => {
+  const response = await fetch(`${BASE_URL}/${pieceId}/${sessionId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Greška prilikom brisanja sesije.");
+  }
 };

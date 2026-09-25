@@ -35,7 +35,7 @@ public class PracticeSessionController {
                 .toList();
     }
 
-    @GetMapping("/{piece_id}")
+    @GetMapping("/piece/{piece_id}")
     public List<PracticeSessionDto> listSessionsForPiece(@PathVariable("piece_id") UUID piece_id) {
         return practiceSessionService.listPracticeSessionForPiece(piece_id)
                 .stream()

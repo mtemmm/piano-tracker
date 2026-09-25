@@ -1,0 +1,95 @@
+.piece-details-container {
+  padding: 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.piece-header {
+  margin-bottom: 1.5rem;
+}
+
+.piece-header h2 {
+  margin: 0;
+}
+
+.composer {
+  color: #666;
+  margin: 0.2rem 0 0.5rem 0;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  background-color: #e2e8f0;
+}
+
+.piece-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .piece-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sessions-history-section h3 {
+  margin-top: 0;
+}
+
+.sessions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.session-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+  background-color: #fff;
+}
+
+.session-date {
+  font-weight: bold;
+  display: block;
+  font-size: 0.9rem;
+}
+
+.session-duration {
+  font-size: 0.85rem;
+  color: #2b6cb0;
+}
+
+.session-notes {
+  margin: 0.4rem 0 0 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.btn-delete-session {
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
