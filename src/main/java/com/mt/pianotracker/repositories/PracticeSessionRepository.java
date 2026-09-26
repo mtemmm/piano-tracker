@@ -2,6 +2,8 @@ package com.mt.pianotracker.repositories;
 
 import com.mt.pianotracker.domain.entities.PracticeSession;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +15,5 @@ public interface PracticeSessionRepository extends JpaRepository<PracticeSession
     Optional<PracticeSession> findByPieceIdAndId(UUID pieceId, UUID id);
     void deleteByPieceIdAndId(UUID pieceId, UUID id);
     void deleteByPieceId(UUID pieceId);
+
 }

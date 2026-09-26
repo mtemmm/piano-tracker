@@ -1,5 +1,7 @@
 package com.mt.pianotracker.services.impl;
 
+import com.mt.pianotracker.domain.dto.PieceStatisticsDto;
+import com.mt.pianotracker.domain.dto.PieceSummaryDto;
 import com.mt.pianotracker.domain.entities.Piece;
 import com.mt.pianotracker.domain.entities.PracticeSession;
 import com.mt.pianotracker.repositories.PieceRepository;
@@ -9,10 +11,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PieceServiceImpl implements PieceService {
@@ -83,6 +83,67 @@ public class PieceServiceImpl implements PieceService {
     public Long getTotalTimeForPiece(UUID pieceId){
         List<PracticeSession> sessions = practiceSessionRepository.findByPieceIdOrderByStartTimeDesc(pieceId);
         return sessions.stream().mapToLong(PracticeSession::getDurationMinutes).sum();
+    }
+
+    @Override
+    public PieceStatisticsDto getPiecesSummary() {
+        List<PracticeSession> sessions = practiceSessionRepository.findAll();
+        Map<UUID, Long> durationPerPiece = sessions.stream()
+                .collect(Collectors.groupingBy(
+                        s -> s.getPiece().getId(),
+                        Collectors.summingLong(PracticeSession::getDurationMinutes)
+                ));
+
+        UUID mostPracticedPieceId = durationPerPiece.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+        Long mostPracticedPieceDuration = durationPerPiece.get(mostPracticedPieceId);
+        PieceSummaryDto mostPracticedPieceDto = buildPieceSummaryDto(mostPracticedPieceId, mostPracticedPieceDuration);
+
+        UUID leastPracticedPieceId = durationPerPiece.entrySet().stream()
+                .min(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+        Long leastPracticedPieceDuration = durationPerPiece.get(leastPracticedPieceId);
+        PieceSummaryDto leastPracticedPieceDto = buildPieceSummaryDto(leastPracticedPieceId, leastPracticedPieceDuration);
+
+
+        UUID highestRatedPieceId = pieceRepository.findHighestRatedPieceId().orElse(null);
+        PieceSummaryDto highestRatedPieceDto = buildPieceSummaryDto(highestRatedPieceId, 0L);
+
+        UUID lowestRatedPieceId = pieceRepository.findLowestRatedPieceId().orElse(null);
+        PieceSummaryDto lowestRatedPieceDto = buildPieceSummaryDto(lowestRatedPieceId, 0L);
+
+        Long totalPracticeTime = sessions
+                .stream()
+                .mapToLong(x -> x.getDurationMinutes())
+                .sum();
+        Long numberOfPieces = pieceRepository.count();
+        return new PieceStatisticsDto(
+                mostPracticedPieceDto,
+                leastPracticedPieceDto,
+                highestRatedPieceDto,
+                lowestRatedPieceDto,
+                totalPracticeTime,
+                numberOfPieces
+        );
+    }
+
+    private PieceSummaryDto buildPieceSummaryDto(UUID pieceId, Long duration) {
+        if(pieceId == null) {
+            return null;
+        }
+        Piece piece = pieceRepository.findById(pieceId).orElse(null);
+        if(piece == null) {
+            return null;
+        }
+        return new PieceSummaryDto(
+                piece.getId(),
+                piece.getTitle(),
+                piece.getComposer(),
+                duration
+        );
     }
 
 }

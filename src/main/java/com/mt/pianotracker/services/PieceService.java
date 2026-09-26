@@ -1,5 +1,7 @@
 package com.mt.pianotracker.services;
 
+import com.mt.pianotracker.domain.dto.PieceStatisticsDto;
+import com.mt.pianotracker.domain.dto.PieceSummaryDto;
 import com.mt.pianotracker.domain.entities.Piece;
 
 import java.util.List;
@@ -14,5 +16,7 @@ public interface PieceService {
     Piece updatePiece(UUID pieceId, Piece piece);
     void deletePiece(UUID pieceId);
     Long getTotalTimeForPiece(UUID pieceId);
+
+    PieceStatisticsDto getPiecesSummary();
 
 }
