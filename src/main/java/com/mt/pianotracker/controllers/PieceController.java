@@ -58,5 +58,9 @@ public class PieceController {
         return pieceMapper.toDto(pieceService.updatePiece(pieceId, pieceMapper.fromDto(pieceDto)));
     }
 
+    @GetMapping("/{id}/duration")
+    public Long getDuration(@PathVariable("id") UUID pieceId){
+        return pieceService.getTotalTimeForPiece(pieceId);
+    }
 
 }

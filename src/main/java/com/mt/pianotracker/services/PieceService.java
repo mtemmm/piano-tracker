@@ -13,5 +13,6 @@ public interface PieceService {
     Optional<Piece> getPiece(UUID pieceId);
     Piece updatePiece(UUID pieceId, Piece piece);
     void deletePiece(UUID pieceId);
+    Long getTotalTimeForPiece(UUID pieceId);
 
 }

@@ -78,4 +78,11 @@ public class PieceServiceImpl implements PieceService {
         practiceSessionRepository.deleteByPieceId(pieceId);
         pieceRepository.deleteById(pieceId);
     }
+
+    @Override
+    public Long getTotalTimeForPiece(UUID pieceId){
+        List<PracticeSession> sessions = practiceSessionRepository.findByPieceIdOrderByStartTimeDesc(pieceId);
+        return sessions.stream().mapToLong(PracticeSession::getDurationMinutes).sum();
+    }
+
 }

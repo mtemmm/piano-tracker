@@ -9,6 +9,14 @@ export const getAllPieces = async () => {
   return await response.json();
 };
 
+export const getPieceDuration = async (id) => {
+  const response = await fetch(`${API_URL}/${id}/duration`);
+  if (!response.ok) {
+    throw new Error("Failed");
+  }
+  return await response.json();
+};
+
 export const createPiece = async (pieceData) => {
   const response = await fetch(API_URL, {
     method: "POST",

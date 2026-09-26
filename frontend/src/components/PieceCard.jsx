@@ -1,8 +1,34 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/PieceCard.css";
+import { getPieceDuration } from "../services/api";
+import { useEffect, useState } from "react";
 
 export function PieceCard({ piece, onDelete, onEdit }) {
   const navigate = useNavigate();
+
+  const [duration, setDuration] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadDuration = async () => {
+      if (!piece.id) return;
+
+      try {
+        setLoading(true);
+        setError(null);
+
+        const durationData = await getPieceDuration(piece.id);
+        setDuration(durationData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDuration();
+  }, [piece.id]);
 
   const handleEditClick = () => {
     if (onEdit) onEdit(piece);
@@ -25,6 +51,9 @@ export function PieceCard({ piece, onDelete, onEdit }) {
 
       <div className="piece-body">
         <div className="piece-status">Status: {piece.status}</div>
+        <div className="piece-duration">
+          Total Practice: {loading ? "Loading..." : `${duration} mins`}
+        </div>
         {piece.rating && (
           <div className="piece-rating">
             Rating: {"★".repeat(piece.rating)} {"☆".repeat(5 - piece.rating)}

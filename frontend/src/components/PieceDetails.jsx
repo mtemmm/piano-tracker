@@ -89,7 +89,7 @@ export function PieceDetails() {
                       })}
                     </span>
                     <span className="session-duration">
-                      ⏱️ {session.duration} min
+                      ⏱️ {session.duration} mins
                     </span>
                     {session.notes && (
                       <p className="session-notes">"{session.notes}"</p>
