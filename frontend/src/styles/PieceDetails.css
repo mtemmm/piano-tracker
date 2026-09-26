@@ -5,7 +5,7 @@
 .back-link {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #3182ce;
+  color: rgb(255, 157, 234);
   text-decoration: none;
   font-weight: bold;
 }
@@ -16,10 +16,11 @@
 
 .piece-header h2 {
   margin: 0;
+  color: #f0f1f3;
 }
 
 .composer {
-  color: #666;
+  color: #d8dce2;
   margin: 0.2rem 0 0.5rem 0;
 }
 
@@ -29,7 +30,8 @@
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: bold;
-  background-color: #e2e8f0;
+  background-color: #edf2f7;
+  color: #2d3748;
 }
 
 .piece-details-grid {
@@ -47,6 +49,7 @@
 
 .sessions-history-section h3 {
   margin-top: 0;
+  color: #1a202c;
 }
 
 .sessions-list {
@@ -63,18 +66,19 @@
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   margin-bottom: 0.8rem;
-  background-color: #fff;
+  background-color: #ffd2d2;
 }
 
 .session-date {
   font-weight: bold;
   display: block;
   font-size: 0.9rem;
+  color: #1a202c;
 }
 
 .session-duration {
   font-size: 0.85rem;
-  color: #2b6cb0;
+  color: rgba(105, 19, 86, 0.666);
 }
 
 .session-notes {
@@ -85,8 +89,8 @@
 }
 
 .btn-delete-session {
-  background-color: #e53e3e;
-  color: white;
+  background-color: #d97b7b;
+  color: #edebeb;
   border: none;
   padding: 0.3rem 0.6rem;
   border-radius: 4px;

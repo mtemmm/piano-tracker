@@ -86,7 +86,7 @@ export default function PracticeTimer({ pieceId, onSessionSaved }) {
 
   return (
     <div className="timer-card">
-      <h3>Merač Vežbanja</h3>
+      <h3>Start recording the session</h3>
 
       <div className="timer-display">{formatTime(seconds)}</div>
 

@@ -58,31 +58,14 @@ export function ListPieces() {
           marginBottom: "1rem",
         }}
       >
-        <h2>My Piano Pieces</h2>
-        <Link
-          to="/add"
-          style={{
-            padding: "0.5rem 1rem",
-            backgroundColor: "#3182ce",
-            color: "white",
-            textDecoration: "none",
-            borderRadius: "4px",
-            fontWeight: "bold",
-          }}
-        >
-          + Add New Piece
+        <h2>Piano tracker app</h2>
+        <br />
+        <Link to="/add" className="addPiece-btn">
+          Add new piece
         </Link>
       </div>
 
-      {/* 3. Kontrolna traka za filtriranje */}
-      <div
-        style={{
-          marginBottom: "1.5rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-        }}
-      >
+      <div className="filter">
         <label htmlFor="status-filter" style={{ fontWeight: "bold" }}>
           Filter by Status:
         </label>
@@ -103,9 +86,8 @@ export function ListPieces() {
         </select>
       </div>
 
-      {/* 4. Renderovanje filtriranih rezultata */}
       {filteredPieces.length === 0 ? (
-        <p>No pieces found for the selected filter.</p>
+        <p>No pieces found.</p>
       ) : (
         <div
           style={{

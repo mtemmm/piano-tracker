@@ -1,11 +1,12 @@
 .piece-card {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 1.25rem;
-  background-color: #ffffff;
+  background-color: #ffd2d2;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+
   justify-content: space-between;
 }
 
@@ -29,6 +30,15 @@
 .piece-body {
   margin-bottom: 1rem;
   font-size: 0.9rem;
+}
+
+.btn-practice {
+  background-color: rgba(105, 19, 86, 0.666);
+  color: #fdfefe;
+}
+
+.btn-practice:hover {
+  background-color: #413737;
 }
 
 .piece-status {
@@ -55,6 +65,7 @@
   margin-top: auto;
 }
 
+.btn-practice,
 .btn-edit,
 .btn-delete {
   padding: 0.4rem 0.8rem;
@@ -74,8 +85,8 @@
 }
 
 .btn-delete {
-  background-color: #fed7d7;
-  color: #9b2c2c;
+  background-color: #d97b7b;
+  color: #edebeb;
 }
 
 .btn-delete:hover {

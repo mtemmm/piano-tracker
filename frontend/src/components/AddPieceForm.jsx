@@ -69,7 +69,7 @@ export function AddPieceForm() {
     }
   };
 
-  if (loading) return <div>Loading piece data...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit} className="add-piece-form">
