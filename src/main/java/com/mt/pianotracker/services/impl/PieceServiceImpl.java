@@ -6,9 +6,11 @@ import com.mt.pianotracker.domain.entities.Piece;
 import com.mt.pianotracker.domain.entities.PracticeSession;
 import com.mt.pianotracker.repositories.PieceRepository;
 import com.mt.pianotracker.repositories.PracticeSessionRepository;
+import com.mt.pianotracker.services.FileStorageService;
 import com.mt.pianotracker.services.PieceService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,10 +21,12 @@ public class PieceServiceImpl implements PieceService {
 
     private final PieceRepository pieceRepository;
     private final PracticeSessionRepository practiceSessionRepository;
+    private final FileStorageService fileStorageService;
 
-    public PieceServiceImpl(PieceRepository pieceRepository, PracticeSessionRepository practiceSessionRepository) {
+    public PieceServiceImpl(PieceRepository pieceRepository, PracticeSessionRepository practiceSessionRepository, FileStorageService fileStorageService) {
         this.pieceRepository = pieceRepository;
         this.practiceSessionRepository = practiceSessionRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Override
@@ -146,4 +150,12 @@ public class PieceServiceImpl implements PieceService {
         );
     }
 
+    @Override
+    public String attachSheetMusic(UUID pieceId, MultipartFile file) {
+        Piece piece = pieceRepository.findById(pieceId).orElseThrow(() -> new RuntimeException("No pieces found"));
+        String url = fileStorageService.uploadFile(file);
+        piece.setSheetMusicUrl(url);
+        pieceRepository.save(piece);
+        return url;
+    }
 }

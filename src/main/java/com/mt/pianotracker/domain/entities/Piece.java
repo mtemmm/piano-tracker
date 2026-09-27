@@ -38,6 +38,9 @@ public class Piece {
     @Column(name = "updated")
     private LocalDateTime updated;
 
+    @Column(name = "sheet_music_url")
+    private String sheetMusicUrl;
+
     public Piece() {
     }
 
@@ -114,6 +117,14 @@ public class Piece {
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    public String getSheetMusicUrl() {
+        return sheetMusicUrl;
+    }
+
+    public void setSheetMusicUrl(String sheetMusicUrl) {
+        this.sheetMusicUrl = sheetMusicUrl;
     }
 
     @Override

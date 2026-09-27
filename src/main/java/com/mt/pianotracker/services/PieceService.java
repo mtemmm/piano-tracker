@@ -3,6 +3,7 @@ package com.mt.pianotracker.services;
 import com.mt.pianotracker.domain.dto.PieceStatisticsDto;
 import com.mt.pianotracker.domain.dto.PieceSummaryDto;
 import com.mt.pianotracker.domain.entities.Piece;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,7 @@ public interface PieceService {
     Long getTotalTimeForPiece(UUID pieceId);
 
     PieceStatisticsDto getPiecesSummary();
+
+    String attachSheetMusic(UUID pieceId, MultipartFile file);
 
 }

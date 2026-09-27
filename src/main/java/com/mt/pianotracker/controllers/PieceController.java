@@ -74,4 +74,13 @@ public class PieceController {
         return ResponseEntity.ok(url);
     }
 
+    @PostMapping("{id}/sheet-music")
+    public ResponseEntity<String> uploadSheetMusic(
+            @PathVariable("id") UUID pieceId,
+            @RequestParam("file") MultipartFile file
+    ){
+        String url = pieceService.attachSheetMusic(pieceId, file);
+        return ResponseEntity.ok(url);
+    }
+
 }
