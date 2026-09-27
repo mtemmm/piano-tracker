@@ -1,6 +1,4 @@
 package com.mt.pianotracker.services.impl;
-
-import com.mt.pianotracker.domain.dto.ai.AiRequestDto;
 import com.mt.pianotracker.domain.dto.ai.AiResponseDto;
 import com.mt.pianotracker.domain.dto.ai.GeminiRequestDto;
 import com.mt.pianotracker.domain.dto.ai.GeminiResponseDto;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,8 +47,9 @@ public class AiServiceImpl implements AiService {
                 
                 %s
                 
-                Please recommend 2-3 new pieces that would be a natural progression in difficulty and style.
-                For each piece, provide a 1-2 sentence explanation of why it fits. Keep the formatting clean with Markdown.
+                Please recommend ONE new piece that would be a natural next step in difficulty and style.
+                Also provide a 1-2 sentence explanation of why it fits and keep the formatting clean with Markdown.
+                Also don't make it super long.
                 """.formatted(piecesFormatted);
         return generateResponseEasy(prompt);
     }

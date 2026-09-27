@@ -4,9 +4,12 @@ package com.mt.pianotracker.controllers;
 import com.mt.pianotracker.domain.dto.PieceDto;
 import com.mt.pianotracker.domain.entities.Piece;
 import com.mt.pianotracker.mappers.PieceMapper;
+import com.mt.pianotracker.services.FileStorageService;
 import com.mt.pianotracker.services.PieceService;
 import org.apache.catalina.LifecycleState;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +22,12 @@ public class PieceController {
 
     private final PieceService pieceService;
     private final PieceMapper pieceMapper;
+    private final FileStorageService fileStorageService;
 
-    public PieceController(PieceService pieceService, PieceMapper pieceMapper) {
+    public PieceController(PieceService pieceService, PieceMapper pieceMapper, FileStorageService fileStorageService) {
         this.pieceService = pieceService;
         this.pieceMapper = pieceMapper;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping
@@ -36,7 +41,7 @@ public class PieceController {
 
     @PostMapping
     public PieceDto createPiece(@RequestBody PieceDto pieceDto){
-        System.out.println("--> POST /api/pieces hit!");
+        //System.out.println("--> POST /api/pieces hit!");
         Piece newPiece = pieceMapper.fromDto(pieceDto);
         Piece resultPiece = pieceService.createPiece(newPiece);
         return pieceMapper.toDto(resultPiece);
@@ -61,6 +66,12 @@ public class PieceController {
     @GetMapping("/{id}/duration")
     public Long getDuration(@PathVariable("id") UUID pieceId){
         return pieceService.getTotalTimeForPiece(pieceId);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file){
+        String url = fileStorageService.uploadFile(file);
+        return ResponseEntity.ok(url);
     }
 
 }

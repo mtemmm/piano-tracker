@@ -22,7 +22,7 @@ public class AiController {
 
     @GetMapping("/simple")
     public ResponseEntity<AiResponseDto> getAnswerToSimpleQuestion(){
-        return ResponseEntity.ok(aiService.generateResponseEasy("Hello!"));
+        return ResponseEntity.ok(aiService.generateResponseEasy("Answer me!"));
     }
 
     @PostMapping
