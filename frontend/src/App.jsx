@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { ListPieces } from "./components/ListPieces";
 import { AddPieceForm } from "./components/AddPieceForm";
 import { PieceDetails } from "./components/PieceDetails"; // DODATO
+import { AiRecommendationsPage } from "./components/AiRecommendationsPage";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/add" element={<AddPieceForm />} />
         <Route path="/edit/:id" element={<AddPieceForm />} />
         <Route path="/pieces/:id" element={<PieceDetails />} />
+        <Route path="/ai-recommendations" element={<AiRecommendationsPage />} />
       </Routes>
     </div>
   );

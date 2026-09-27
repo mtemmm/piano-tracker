@@ -88,6 +88,10 @@ export function ListPieces() {
         </Link>
       </div>
 
+      <Link to="/ai-recommendations" className="btn-ai">
+        What to play next?
+      </Link>
+
       <div className="filter">
         <label htmlFor="status-filter" style={{ fontWeight: "bold" }}>
           Filter by Status:

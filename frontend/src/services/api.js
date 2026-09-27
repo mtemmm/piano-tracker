@@ -1,5 +1,6 @@
 const API_URL = "http://localhost:8080/api/pieces";
 const BASE_URL = "http://localhost:8080/api/sessions";
+const AI_URL = "http://localhost:8080/api/ai";
 
 export const getAllPieces = async () => {
   const response = await fetch(API_URL);
@@ -126,4 +127,20 @@ export const deleteSheetMusic = async (pieceId) => {
   if (!response.ok) {
     throw new Error("Failed to delete sheet music");
   }
+};
+
+export const getAiRecommendations = async (pieceIds) => {
+  const response = await fetch(AI_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ pieceIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch AI recommendations");
+  }
+
+  return await response.json();
 };

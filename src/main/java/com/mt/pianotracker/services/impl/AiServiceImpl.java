@@ -48,7 +48,7 @@ public class AiServiceImpl implements AiService {
                 %s
                 
                 Please recommend ONE new piece that would be a natural next step in difficulty and style.
-                Also provide a 1-2 sentence explanation of why it fits and keep the formatting clean with Markdown.
+                Also provide a 1-2 sentence explanation of why it fits.
                 Also don't make it super long.
                 """.formatted(piecesFormatted);
         return generateResponseEasy(prompt);
