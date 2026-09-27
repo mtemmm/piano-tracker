@@ -21,5 +21,6 @@ public interface PieceService {
     PieceStatisticsDto getPiecesSummary();
 
     String attachSheetMusic(UUID pieceId, MultipartFile file);
+    void removeSheetMusic(UUID pieceId);
 
 }

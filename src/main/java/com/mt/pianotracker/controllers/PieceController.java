@@ -83,4 +83,9 @@ public class PieceController {
         return ResponseEntity.ok(url);
     }
 
+    @DeleteMapping("{id}/sheet-music")
+    public void deleteSheetMusic(@PathVariable("id") UUID pieceId){
+        pieceService.removeSheetMusic(pieceId);
+    }
+
 }

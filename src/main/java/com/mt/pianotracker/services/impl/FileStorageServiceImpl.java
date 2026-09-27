@@ -29,4 +29,24 @@ public class FileStorageServiceImpl implements FileStorageService {
             throw new RuntimeException("Failed uploading - " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public void deleteFile(String url) {
+        try {
+            String publicId = extractPublicIdFromUrl(url);
+            cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+        } catch (IOException e) {
+            throw new RuntimeException("Error while deleting a file " + e.getMessage());
+        }
+    }
+
+    private String extractPublicIdFromUrl(String url) {
+        int lastSlashIndex = url.lastIndexOf('/');
+        int lastDotIndex = url.lastIndexOf('.');
+        if(lastSlashIndex != -1 && lastDotIndex != -1 && lastDotIndex > lastSlashIndex){
+            return url.substring(lastSlashIndex + 1, lastDotIndex);
+        }
+
+        return url;
+    }
 }

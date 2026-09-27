@@ -158,4 +158,16 @@ public class PieceServiceImpl implements PieceService {
         pieceRepository.save(piece);
         return url;
     }
+
+    @Override
+    @Transactional
+    public void removeSheetMusic(UUID pieceId) {
+        Piece piece = pieceRepository.findById(pieceId).orElseThrow(() -> new RuntimeException("No pieces found"));
+        if(piece.getSheetMusicUrl() == null)
+            return;
+        String url = piece.getSheetMusicUrl();
+        fileStorageService.deleteFile(url);
+        piece.setSheetMusicUrl(null);
+        pieceRepository.save(piece);
+    }
 }
