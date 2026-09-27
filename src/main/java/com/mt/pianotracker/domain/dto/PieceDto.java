@@ -11,6 +11,7 @@ public record PieceDto(
     String composer,
     Status status,
     Integer rating,
-    String notes
+    String notes,
+    String sheetMusicUrl
 ) {
 }

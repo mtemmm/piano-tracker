@@ -15,7 +15,7 @@ public class PieceMapperImpl implements PieceMapper {
 
     @Override
     public PieceDto toDto(Piece piece) {
-        return new PieceDto(piece.getId(), piece.getTitle(), piece.getComposer(), piece.getStatus(), piece.getRating(), piece.getNotes());
+        return new PieceDto(piece.getId(), piece.getTitle(), piece.getComposer(), piece.getStatus(), piece.getRating(), piece.getNotes(), piece.getSheetMusicUrl());
     }
 
 }
