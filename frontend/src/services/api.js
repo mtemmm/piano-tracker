@@ -1,6 +1,7 @@
 const API_URL = "http://localhost:8080/api/pieces";
 const BASE_URL = "http://localhost:8080/api/sessions";
 const AI_URL = "http://localhost:8080/api/ai";
+const STATISTICS_URL = "http://localhost:8080/api/piece-statistics";
 
 export const getAllPieces = async () => {
   const response = await fetch(API_URL);
@@ -142,5 +143,13 @@ export const getAiRecommendations = async (pieceIds) => {
     throw new Error("Failed to fetch AI recommendations");
   }
 
+  return await response.json();
+};
+
+export const getPieceStatistics = async () => {
+  const response = await fetch(STATISTICS_URL);
+  if (!response.ok) {
+    throw new Error("Failed to fetch piece statistics");
+  }
   return await response.json();
 };

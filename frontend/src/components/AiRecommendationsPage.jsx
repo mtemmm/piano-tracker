@@ -65,7 +65,7 @@ export function AiRecommendationsPage() {
   };
 
   if (loadingPieces)
-    return <div className="ai-page-container">Loading your repertoire...</div>;
+    return <div className="ai-page-container">Loading your pieces...</div>;
 
   return (
     <div className="ai-page-container">

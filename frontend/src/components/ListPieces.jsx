@@ -82,10 +82,17 @@ export function ListPieces() {
         }}
       >
         <h2>Piano tracker app</h2>
-        <br />
-        <Link to="/add" className="addPiece-btn">
-          Add new piece
-        </Link>
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          <Link to="/statistics" className="stats-btn">
+            Statistics
+          </Link>
+          <Link to="/ai-recommendations" className="ai-btn">
+            What to play next
+          </Link>
+          <Link to="/add" className="addPiece-btn">
+            Add new piece
+          </Link>
+        </div>
       </div>
 
       <Link to="/ai-recommendations" className="btn-ai">
