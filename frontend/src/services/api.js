@@ -78,7 +78,7 @@ export const createPracticeSession = async (pieceId, sessionData) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Greška prilikom snimanja sesije.");
+    throw new Error(errorData.message || "Error while creating a session");
   }
 
   return await response.json();
@@ -88,7 +88,7 @@ export const fetchSessionsForPiece = async (pieceId) => {
   const response = await fetch(`${BASE_URL}/piece/${pieceId}`);
 
   if (!response.ok) {
-    throw new Error("Greška prilikom dobavljanja sesija.");
+    throw new Error("Failed to get sessions for this piece");
   }
 
   return await response.json();
@@ -100,6 +100,30 @@ export const deletePracticeSession = async (pieceId, sessionId) => {
   });
 
   if (!response.ok) {
-    throw new Error("Greška prilikom brisanja sesije.");
+    throw new Error("Error while deleting session");
+  }
+};
+
+export const uploadSheetMusic = async (pieceId, file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_URL}/${pieceId}/sheet-music`, {
+    method: "POST",
+    body: formData,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to upload sheet music");
+  }
+  return await response.text();
+};
+
+export const deleteSheetMusic = async (pieceId) => {
+  const response = await fetch(`${API_URL}/${pieceId}/sheet-music`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete sheet music");
   }
 };

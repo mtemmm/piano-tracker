@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getAllPieces, deletePiece } from "../services/api";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getAllPieces,
+  deletePiece,
+  uploadSheetMusic,
+  deleteSheetMusic,
+} from "../services/api";
 import { PieceCard } from "./PieceCard";
-import { useNavigate, useParams } from "react-router-dom";
 
 export function ListPieces() {
   const [pieces, setPieces] = useState([]);
@@ -12,6 +16,7 @@ export function ListPieces() {
   const [statusFilter, setStatusFilter] = useState("ALL");
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchPieces = async () => {
       try {
@@ -34,6 +39,24 @@ export function ListPieces() {
     } catch (err) {
       alert("Error deleting piece: " + err.message);
     }
+  };
+
+  const handleUploadSheetMusic = async (pieceId, file) => {
+    const newUrl = await uploadSheetMusic(pieceId, file);
+    setPieces((prevPieces) =>
+      prevPieces.map((p) =>
+        p.id === pieceId ? { ...p, sheetMusicUrl: newUrl } : p,
+      ),
+    );
+  };
+
+  const handleDeleteSheetMusic = async (pieceId) => {
+    await deleteSheetMusic(pieceId);
+    setPieces((prevPieces) =>
+      prevPieces.map((p) =>
+        p.id === pieceId ? { ...p, sheetMusicUrl: null } : p,
+      ),
+    );
   };
 
   const filteredPieces = pieces.filter((piece) => {
@@ -102,6 +125,8 @@ export function ListPieces() {
               piece={piece}
               onDelete={handleDeletePiece}
               onEdit={handleEditPiece}
+              onUploadSheetMusic={handleUploadSheetMusic}
+              onDeleteSheetMusic={handleDeleteSheetMusic}
             />
           ))}
         </div>
