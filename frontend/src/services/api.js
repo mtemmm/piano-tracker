@@ -1,10 +1,10 @@
-const API_URL = "http://localhost:8080/api/pieces";
-const BASE_URL = "http://localhost:8080/api/sessions";
+const PIECES_URL = "http://localhost:8080/api/pieces";
+const SESSIONS_URL = "http://localhost:8080/api/sessions";
 const AI_URL = "http://localhost:8080/api/ai";
 const STATISTICS_URL = "http://localhost:8080/api/piece-statistics";
 
 export const getAllPieces = async () => {
-  const response = await fetch(API_URL);
+  const response = await fetch(PIECES_URL);
   if (!response.ok) {
     throw new Error("Failed");
   }
@@ -12,7 +12,7 @@ export const getAllPieces = async () => {
 };
 
 export const getPieceDuration = async (id) => {
-  const response = await fetch(`${API_URL}/${id}/duration`);
+  const response = await fetch(`${PIECES_URL}/${id}/duration`);
   if (!response.ok) {
     throw new Error("Failed");
   }
@@ -20,7 +20,7 @@ export const getPieceDuration = async (id) => {
 };
 
 export const createPiece = async (pieceData) => {
-  const response = await fetch(API_URL, {
+  const response = await fetch(PIECES_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const createPiece = async (pieceData) => {
 };
 
 export const deletePiece = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${PIECES_URL}/${id}`, {
     method: "DELETE",
   });
 
@@ -46,7 +46,7 @@ export const deletePiece = async (id) => {
 };
 
 export const getPieceById = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`);
+  const response = await fetch(`${PIECES_URL}/${id}`);
   if (!response.ok) {
     throw new Error("Failed to fetch piece details");
   }
@@ -54,7 +54,7 @@ export const getPieceById = async (id) => {
 };
 
 export const updatePiece = async (id, pieceData) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${PIECES_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export const updatePiece = async (id, pieceData) => {
 };
 
 export const createPracticeSession = async (pieceId, sessionData) => {
-  const response = await fetch(`${BASE_URL}/${pieceId}`, {
+  const response = await fetch(`${SESSIONS_URL}/${pieceId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export const createPracticeSession = async (pieceId, sessionData) => {
 };
 
 export const fetchSessionsForPiece = async (pieceId) => {
-  const response = await fetch(`${BASE_URL}/piece/${pieceId}`);
+  const response = await fetch(`${SESSIONS_URL}/piece/${pieceId}`);
 
   if (!response.ok) {
     throw new Error("Failed to get sessions for this piece");
@@ -97,7 +97,7 @@ export const fetchSessionsForPiece = async (pieceId) => {
 };
 
 export const deletePracticeSession = async (pieceId, sessionId) => {
-  const response = await fetch(`${BASE_URL}/${pieceId}/${sessionId}`, {
+  const response = await fetch(`${SESSIONS_URL}/${pieceId}/${sessionId}`, {
     method: "DELETE",
   });
 
@@ -110,7 +110,7 @@ export const uploadSheetMusic = async (pieceId, file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const response = await fetch(`${API_URL}/${pieceId}/sheet-music`, {
+  const response = await fetch(`${PIECES_URL}/${pieceId}/sheet-music`, {
     method: "POST",
     body: formData,
   });
@@ -121,7 +121,7 @@ export const uploadSheetMusic = async (pieceId, file) => {
 };
 
 export const deleteSheetMusic = async (pieceId) => {
-  const response = await fetch(`${API_URL}/${pieceId}/sheet-music`, {
+  const response = await fetch(`${PIECES_URL}/${pieceId}/sheet-music`, {
     method: "DELETE",
   });
 

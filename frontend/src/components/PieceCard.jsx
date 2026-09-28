@@ -42,6 +42,7 @@ export function PieceCard({
   };
 
   const handleDeleteClick = () => {
+    if (!window.confirm("Are you sure you want to delete this piece?")) return;
     if (onDelete) onDelete(piece.id);
   };
 
@@ -119,7 +120,7 @@ export function PieceCard({
                 rel="noopener noreferrer"
                 className="btn-view-sheet"
               >
-                View Sheet Music
+                Sheet music
               </a>
               <button
                 className="btn-delete-sheet"

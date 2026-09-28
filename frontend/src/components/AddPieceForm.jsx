@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { createPiece, updatePiece, getPieceById } from "../services/api";
 import "../styles/AddPieceForm.css";
 
@@ -69,65 +69,75 @@ export function AddPieceForm() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="loading-text">Loading...</div>;
 
   return (
-    <form onSubmit={handleSubmit} className="add-piece-form">
-      <h3>{isEditMode ? "Edit Piece" : "Add New Piece"}</h3>
+    <div className="add-piece-container">
+      <Link to="/" className="back-btn">
+        ← Back to List
+      </Link>
 
-      {error && <p className="error-message">Error: {error}</p>}
+      <form onSubmit={handleSubmit} className="add-piece-form">
+        <h3>{isEditMode ? "Edit Piece" : "Add New Piece"}</h3>
 
-      <div className="form-group">
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        {error && <p className="error-message">Error: {error}</p>}
 
-      <div className="form-group">
-        <label>Composer:</label>
-        <input
-          type="text"
-          name="composer"
-          value={formData.composer}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div className="form-group">
+          <label>Title:</label>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <div className="form-group">
-        <label>Status:</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option value="WISHLIST">WISHLIST</option>
-          <option value="LEARNING">LEARNING</option>
-          <option value="FINISHED">FINISHED</option>
-        </select>
-      </div>
+        <div className="form-group">
+          <label>Composer:</label>
+          <input
+            type="text"
+            name="composer"
+            value={formData.composer}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <div className="form-group">
-        <label>Rating (1-5):</label>
-        <input
-          type="number"
-          name="rating"
-          min="1"
-          max="5"
-          value={formData.rating}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-group">
+          <label>Status:</label>
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option value="WISHLIST">WISHLIST</option>
+            <option value="LEARNING">LEARNING</option>
+            <option value="FINISHED">FINISHED</option>
+          </select>
+        </div>
 
-      <div className="form-group">
-        <label>Notes:</label>
-        <textarea name="notes" value={formData.notes} onChange={handleChange} />
-      </div>
+        <div className="form-group">
+          <label>Rating (1-5):</label>
+          <input
+            type="number"
+            name="rating"
+            min="1"
+            max="5"
+            value={formData.rating}
+            onChange={handleChange}
+          />
+        </div>
 
-      <button type="submit" disabled={submitting} className="submit-btn">
-        {submitting ? "Saving..." : isEditMode ? "Update Piece" : "Add Piece"}
-      </button>
-    </form>
+        <div className="form-group">
+          <label>Notes:</label>
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit" disabled={submitting} className="submit-btn">
+          {submitting ? "Saving..." : isEditMode ? "Update Piece" : "Add Piece"}
+        </button>
+      </form>
+    </div>
   );
 }

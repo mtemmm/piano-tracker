@@ -7,6 +7,7 @@ import {
   deleteSheetMusic,
 } from "../services/api";
 import { PieceCard } from "./PieceCard";
+import "../styles/ListPieces.css";
 
 export function ListPieces() {
   const [pieces, setPieces] = useState([]);
@@ -68,52 +69,41 @@ export function ListPieces() {
     navigate(`/edit/${piece.id}`);
   };
 
-  if (loading) return <div>Loading pieces...</div>;
-  if (error) return <div>Error loading pieces: {error}</div>;
+  if (loading)
+    return <div className="list-pieces-container">Loading pieces...</div>;
+  if (error)
+    return (
+      <div className="list-pieces-container">Error loading pieces: {error}</div>
+    );
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1rem",
-        }}
-      >
-        <h2>Piano tracker app</h2>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <Link to="/statistics" className="stats-btn">
-            Statistics
-          </Link>
-          <Link to="/ai-recommendations" className="ai-btn">
-            What to play next
-          </Link>
-          <Link to="/add" className="addPiece-btn">
-            Add new piece
-          </Link>
-        </div>
+    <div className="list-pieces-container">
+      <h2 className="main-title">piano practice</h2>
+      <h2 className="second-title">- tracker app -</h2>
+
+      <div className="action-buttons-container">
+        <Link to="/add" className="addPiece-btn">
+          Add new piece
+        </Link>
+        <Link to="/statistics" className="stats-btn">
+          Statistics
+        </Link>
+        <Link to="/ai-recommendations" className="ai-btn">
+          What to play next
+        </Link>
       </div>
 
-      <Link to="/ai-recommendations" className="btn-ai">
-        What to play next?
-      </Link>
-
-      <div className="filter">
-        <label htmlFor="status-filter" style={{ fontWeight: "bold" }}>
-          Filter by Status:
+      <div className="filter-container">
+        <label htmlFor="status-filter" className="filter-label">
+          Filter by status:
         </label>
         <select
           id="status-filter"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          style={{
-            padding: "0.4rem 0.8rem",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
+          className="filter-select"
         >
-          <option value="ALL">All Statuses</option>
+          <option value="ALL">All</option>
           <option value="WISHLIST">WISHLIST</option>
           <option value="LEARNING">LEARNING</option>
           <option value="FINISHED">FINISHED</option>
@@ -123,13 +113,7 @@ export function ListPieces() {
       {filteredPieces.length === 0 ? (
         <p>No pieces found.</p>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="pieces-grid">
           {filteredPieces.map((piece) => (
             <PieceCard
               key={piece.id}

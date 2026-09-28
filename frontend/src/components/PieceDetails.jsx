@@ -46,23 +46,23 @@ export function PieceDetails() {
       await deletePracticeSession(id, sessionId);
       setSessions((prev) => prev.filter((s) => s.id !== sessionId));
     } catch (err) {
-      alert("Error while deleting the session" + err.message);
+      alert("Error while deleting the session: " + err.message);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!piece) return <div>Piece not found.</div>;
+  if (loading) return <div className="loading-text">Loading details...</div>;
+  if (error) return <div className="error-message">Error: {error}</div>;
+  if (!piece) return <div className="no-data-text">Piece not found.</div>;
 
   return (
     <div className="piece-details-container">
       <Link to="/" className="back-link">
-        Back to the piece list
+        ← Back to piece list
       </Link>
 
       <div className="piece-header">
-        <h2>{piece.title}</h2>
-        <p className="composer">Composer: {piece.composer || "Unknown"}</p>
+        <h2 className="main-title">{piece.title}</h2>
+        <p className="composer">{piece.composer || "Unknown Composer"}</p>
       </div>
 
       <div className="piece-details-grid">
@@ -71,9 +71,9 @@ export function PieceDetails() {
         </div>
 
         <div className="sessions-history-section">
-          <h3>Practice history</h3>
+          <h3>Practice History</h3>
           {sessions.length === 0 ? (
-            <p>Nothing recorded yet</p>
+            <p className="no-data">Nothing recorded yet</p>
           ) : (
             <ul className="sessions-list">
               {sessions.map((session) => (

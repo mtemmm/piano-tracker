@@ -52,18 +52,19 @@
 
 body {
   margin: 0;
-  background-color: #44003398;
+  background-color: #1f061998;
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   box-sizing: border-box;
 }
 
@@ -99,16 +100,6 @@ h2 {
   align-items: center;
   gap: 0.5rem;
   color: #e5e4e7;
-}
-
-.addPiece-btn {
-  padding: 0.5rem 1rem;
-  background-color: #ffd2d2;
-  color: #1a202c;
-
-  border-radius: 4px;
-  font-weight: bold;
-  text-decoration: none;
 }
 
 p {

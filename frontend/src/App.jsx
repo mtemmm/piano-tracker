@@ -7,7 +7,7 @@ import { PieceStatisticsPage } from "./components/PieceStatisticsPage";
 
 export default function App() {
   return (
-    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+    <div style={{ width: "100%", minHeight: "100vh" }}>
       <Routes>
         <Route path="/" element={<ListPieces />} />
         <Route path="/add" element={<AddPieceForm />} />

@@ -65,7 +65,7 @@ export function AiRecommendationsPage() {
   };
 
   if (loadingPieces)
-    return <div className="ai-page-container">Loading your pieces...</div>;
+    return <div className="loading-text">Loading your pieces...</div>;
 
   return (
     <div className="ai-page-container">
@@ -73,21 +73,21 @@ export function AiRecommendationsPage() {
         ← Back
       </button>
 
-      <h2>Get recommendations</h2>
-      <p>Select the pieces you like:</p>
+      <h1 className="main-titleAI">Get recommendations</h1>
+      <p className="ai-subtitle">Select the pieces you like:</p>
 
       {pieces.length === 0 ? (
-        <p>You don't have any pieces saved yet.</p>
+        <p className="no-pieces-msg">You don't have any pieces selected yet.</p>
       ) : (
         <div className="selection-box">
           <div className="selection-header">
-            <button onClick={handleSelectAll}>
+            <button onClick={handleSelectAll} className="btn-select-all">
               {selectedIds.length === pieces.length
                 ? "Deselect All"
                 : "Select All"}
             </button>
             <span className="selection-count">
-              Selected: {selectedIds.length} / {pieces.length}
+              Selected: <strong>{selectedIds.length}</strong> / {pieces.length}
             </span>
           </div>
 
@@ -98,9 +98,10 @@ export function AiRecommendationsPage() {
                   type="checkbox"
                   checked={selectedIds.includes(piece.id)}
                   onChange={() => handleToggleSelect(piece.id)}
+                  className="custom-checkbox"
                 />
-                <span>
-                  <strong>{piece.title}</strong> — {piece.composer} (
+                <span className="piece-item-info">
+                  <strong>{piece.title}</strong> — <em>{piece.composer}</em> (
                   {piece.status})
                 </span>
               </label>
@@ -114,13 +115,16 @@ export function AiRecommendationsPage() {
         disabled={selectedIds.length === 0 || loadingAi}
         className="submit-ai-btn"
       >
-        {loadingAi ? "Analyzing with AI..." : "Get Recommendations"}
+        {loadingAi ? "Analyzing..." : "Get recommendations"}
       </button>
 
       {error && <div className="error-message">{error}</div>}
 
       {recommendations && (
-        <div className="ai-response-display">{getRawAiText()}</div>
+        <div className="ai-response-container">
+          <h3 className="ai-response-title">AI recommendations</h3>
+          <div className="ai-response-text">{getRawAiText()}</div>
+        </div>
       )}
     </div>
   );

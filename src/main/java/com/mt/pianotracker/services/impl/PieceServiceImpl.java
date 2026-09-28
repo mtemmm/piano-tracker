@@ -78,6 +78,7 @@ public class PieceServiceImpl implements PieceService {
     }
 
     @Override
+    @Transactional
     public void deletePiece(UUID pieceId) {
         practiceSessionRepository.deleteByPieceId(pieceId);
         pieceRepository.deleteById(pieceId);
